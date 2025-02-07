@@ -126,11 +126,9 @@ try:
         clicked = find_and_click_button()
 
         if clicked:
-            # If the button was found, reset to the full interval
-            sleep_time = random.randint(15 * 60, 17 * 60)
+            sleep_time = random.randint(13 * 60, 16 * 60)
         else:
-            # If the button was NOT found, retry after 1-2 minutes
-            sleep_time = random.randint(1 * 60, 2 * 60)
+            sleep_time = random.randint(30, 90)
 
         current_time = datetime.now(pst).strftime("%I:%M %p")
         print(f"[{current_time}] Sleeping for {sleep_time / 60:.2f} minutes before the next check.")
