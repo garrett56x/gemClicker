@@ -70,6 +70,18 @@ def find_and_click_button():
         pyautogui.click()
 
         # account for window not being focused i.e. extra click
+        # Take a screenshot of the game area
+        screenshot = pyautogui.screenshot(region=(screen_x, screen_y, screen_width, screen_height))
+        # screenshot.save("screenshot.png")
+        screenshot = np.array(screenshot)  # Convert to NumPy array (OpenCV uses this format)
+
+        # Convert button image to NumPy array
+        button_image_np = np.array(button_image)
+
+        # Perform template matching to find the button image in the screenshot
+        result = cv2.matchTemplate(screenshot, button_image_np, cv2.TM_CCOEFF_NORMED)
+
+        # Get the best match location (highest correlation)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
         if max_val > 0.85:
             time.sleep(1)
@@ -90,7 +102,7 @@ def find_and_click_button():
 
         return True
     else:
-        print("Button not found.")
+        # print("Button not found.")
         return False
     
 # Function to capture the screen and look for the button
@@ -124,14 +136,14 @@ def find_and_click_floater():
 try:
     while True:
         clicked = find_and_click_button()
+        current_time = datetime.now(pst).strftime("%I:%M %p")
 
         if clicked:
-            sleep_time = random.randint(13 * 60, 16 * 60)
+            sleep_time = random.randint(9 * 60, 11 * 60)
+            print(f"[{current_time}] Sleeping for {sleep_time / 60:.2f} minutes before the next check.")
         else:
             sleep_time = random.randint(30, 90)
-
-        current_time = datetime.now(pst).strftime("%I:%M %p")
-        print(f"[{current_time}] Sleeping for {sleep_time / 60:.2f} minutes before the next check.")
+            print(f"[{current_time}] Sleeping for {sleep_time / 60:.2f}.")
 
         time.sleep(sleep_time)
 
