@@ -5,7 +5,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 # Game window values
@@ -136,14 +136,15 @@ def find_and_click_floater():
 try:
     while True:
         clicked = find_and_click_button()
-        current_time = datetime.now(pst).strftime("%I:%M %p")
+        current_time = datetime.now(pst).strftime("%I:%M:%S %p")
 
         if clicked:
             sleep_time = random.randint(9 * 60, 11 * 60)
-            print(f"[{current_time}] Sleeping for {sleep_time / 60:.2f} minutes before the next check.")
         else:
             sleep_time = random.randint(30, 90)
-            print(f"[{current_time}] Sleeping for {sleep_time / 60:.2f}.")
+
+        wake_time = (datetime.now(pst) + timedelta(seconds=sleep_time)).strftime("%I:%M:%S %p")
+        print(f"[{current_time}] Sleeping until {wake_time}.")
 
         time.sleep(sleep_time)
 
