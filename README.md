@@ -1,7 +1,7 @@
 # gemClicker
 
-Start venv:
+# Start venv:
 source venv/bin/activate
 
-Run app:
+# Run app:
 python index.py
