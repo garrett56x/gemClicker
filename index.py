@@ -10,7 +10,7 @@ import pytz
 import tkinter as tk
 from tkinter import scrolledtext, ttk
 
-# Game window values
+# Game window values test
 screen_x = 0
 screen_y = 65
 screen_width = 635
